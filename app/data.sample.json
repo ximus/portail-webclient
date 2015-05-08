@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "url": "/auth/{{providerID}}",
+    "providers": [
+      { "id": "google" },
+      { "id": "facebook" },
+      { "id": "windows" },
+      { "id": "yahoo" }
+    ]
+  }
+}

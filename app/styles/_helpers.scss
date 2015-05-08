@@ -1,0 +1,3 @@
+@mixin hi-res-background-size($url) {
+  background-size: image-width($url)/2 image-height($url)/2;
+}

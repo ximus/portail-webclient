@@ -1,0 +1,27 @@
+{
+  "name": "portail-web2",
+  "version": "0.0.0",
+  "authors": [
+    "ximus"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.4",
+    "core-elements": "Polymer/core-elements",
+    "paper-elements": "Polymer/paper-elements",
+    "normalize.css": "~3.0.2",
+    "normalize-css": "~3.0.2",
+    "requirejs": "~2.1.15",
+    "app-router": "~2.4.1",
+    "svg-injector": "~1.1.2",
+    "fetch": "~0.8.1"
+  }
+}

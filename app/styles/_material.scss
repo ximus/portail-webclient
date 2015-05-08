@@ -1,0 +1,164 @@
+@import "media_queries";
+
+// Alot of design in this app is based on google's material design spec
+// hence these helpers get there own file
+// http://www.google.com/design/spec
+
+$md-light-black: hsla(0, 0%, 46%, 1);
+$md-std-black:   hsla(0, 0%, 13%, 1);
+
+$md-vertical-margin: 8px;
+
+$md-horizontal-margin-mobile: 16px;
+$md-horizontal-margin-tablet: 16px + 8px;
+@mixin md-horizontal-margins {
+  @include mobile-portrait-and-up {
+    margin-left:  $md-horizontal-margin-mobile;
+    margin-right: $md-horizontal-margin-mobile;
+  }
+  @include tablet-portrait-and-up {
+    margin-left:  $md-horizontal-margin-tablet;
+    margin-right: $md-horizontal-margin-tablet;
+  }
+}
+
+$md-appbar-height-tablet: 64px;
+$md-appbar-height-mobile: 56px;
+$md-appbar-height-mobile-landscape: 48px;
+
+@mixin md-appbar-height {
+  height: $md-appbar-height-tablet;
+  @include mobile-only {
+    height: $md-appbar-height-mobile;
+  }
+  @include mobile-landscape-only {
+    height: $md-appbar-height-mobile-landscape;
+  }
+}
+
+@mixin md-fixed-appbar-offset {
+  padding-top: $md-appbar-height-tablet;
+  @include mobile-only {
+    padding-top: $md-appbar-height-mobile;
+  }
+  @include mobile-landscape-only {
+    padding-top: $md-appbar-height-mobile-landscape;
+  }
+}
+
+@mixin md-promoted-action {
+  height: 56px;
+  width: 56px;
+  margin-top: -28px; // half its height
+  border-radius: 50%;
+  border: 0;
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.12), 0px 1px 1px 0px rgba(0,0,0,0.50);
+  :first-child {
+    vertical-align: middle;
+    margin-top: -1px;
+  }
+}
+
+@mixin md-shadow-depth-1 {
+  box-shadow: 0px 1px 1.5px 0px rgba(0,0,0,0.12), 0px 1px 1px 0px rgba(0,0,0,0.24);
+}
+
+@mixin md-shadow-depth-2 {
+  box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.16), 0px 3px 3px 0px rgba(0,0,0,0.23);
+}
+
+@mixin md-shadow-depth-3 {
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.19), 0px 6px 3px 0px rgba(0,0,0,0.23);
+}
+
+@mixin md-shadow-depth-4 {
+  box-shadow: 0px 14px 14px 0px rgba(0,0,0,0.25), 0px 10px 5px 0px rgba(0,0,0,0.22);
+}
+
+@mixin md-shadow-depth-4 {
+  box-shadow: 0px 19px 19px 0px rgba(0,0,0,0.30), 0px 15px 6px 0px rgba(0,0,0,0.22);
+}
+
+// TODO: tune all these px fallbacks
+// Typography
+// px font-size fallback assumes:
+// body { font-size: 62.7%; }
+// roboto font
+@mixin md-typo-display-4 {
+  color: $md-std-black;
+  font-size: 112px;
+  font-weight: 300;
+}
+@mixin md-typo-display-3 {
+  color: $md-std-black;
+  font-size: 56px;
+  font-weight: 400;
+}
+@mixin md-typo-display-2 {
+  color: $md-std-black;
+  font-size: 45px;
+  font-weight: 400;
+}
+@mixin md-typo-display-1 {
+  color: $md-std-black;
+  font-size: 34px;
+  font-weight: 400;
+}
+@mixin md-typo-headline {
+  color: $md-std-black;
+  font-size: 24px;
+  font-weight: 400;
+}
+@mixin md-typo-title {
+  color: $md-std-black;
+  font-size: 20px;
+  font-weight: 500;
+}
+@mixin md-typo-subhead {
+  color: $md-std-black;
+  font-size: 16px;
+  font-weight: 400;
+  @include desktop-and-up {
+    font-size: 15px;
+  }
+}
+@mixin md-typo-body-2 {
+  color: $md-std-black;
+  font-size: 14px;
+  font-weight: 500;
+  @include desktop-and-up {
+    font-size: 13px;
+  }
+}
+@mixin md-typo-body-1 {
+  @include md-typo-body-2;
+  font-weight: 400;
+}
+@mixin md-typo-caption {
+  color: $md-light-black;
+  font-size: 12px;
+  font-weight: 400;
+}
+@mixin md-typo-menu {
+  color: $md-std-black;
+  font-size: 14px;
+  font-weight: 500;
+  @include desktop-and-up {
+    font-size: 13px;
+  }
+}
+@mixin md-typo-button {
+  color: $md-std-black;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform:uppercase;
+}
+
+@mixin md-card {
+  paper-shadow {
+    padding: 16px;
+  }
+  border-radius: 2px;
+  background: white;
+  // box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.12), 0px 1px 1px 0px rgba(0,0,0,0.50);
+}

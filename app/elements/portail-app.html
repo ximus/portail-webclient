@@ -1,0 +1,82 @@
+<link rel="import" href="../vendor/polymer/polymer.html">
+<link rel="import" href="../vendor/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="../vendor/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../vendor/core-animated-pages/transitions/cross-fade.html">
+<link rel="import" href="../vendor/core-animated-pages/transitions/slide-from-right.html">
+<link rel="import" href="../vendor/paper-spinner/paper-spinner.html">
+<link rel="import" href="../vendor/app-router/app-router.html">
+<link rel="import" href="portail-login.html">
+<link rel="import" href="portail-profile.html">
+<link rel="import" href="portail-gate.html">
+<link rel="import" href="portail-appbar.html">
+
+<polymer-element name="portail-app" fit vertical layout>
+
+<template>
+  <link rel="stylesheet" href="portail-app.css">
+
+  <core-animated-pages fit selected="{{ selected }}" transitions="cross-fade-all">
+
+    <!-- Splash Screen -->
+    <div name="splash" cross-fade>
+      <span fit layout vertical center-justified center class="splash {{ {wide: wide} | tokenList }}">
+        <paper-spinner active></paper-spinner>
+      </span>
+    </div>
+
+     <!-- App main -->
+    <core-drawer-panel name="main" responsiveWidth="99999px" cross-fade>
+
+      <!-- Nav Menu -->
+      <div drawer hidden?="{{ !user }}">
+        <div id="logged-in-user-badge">
+          <img src="{{ user.image_url }}">
+          <span>{{ user.name }}</span>
+        </div>
+        <paper-button>
+          Profile
+        </paper-button>
+        <paper-button on-click="{{ logout }}">
+          Se déconnecter
+        </paper-button>
+      </div>
+
+      <!-- App current view -->
+      <div main>
+        <!-- nav menu icon -->
+        <paper-icon-button id="hamburger" core-drawer-toggle icon="menu"></paper-icon-button>
+
+        <!-- Views -->
+        <app-router id="router" init="manual" mode="pushstate" core-animated-pages transitions="slide-from-right" on-state-change="{{ routeChanged }}">
+          <app-route path="/login">
+            <template>
+              <portail-login></portail-login>
+            </template>
+          </app-route>
+          <app-route path="/gate">
+            <template>
+              <portail-gate></portail-gate>
+            </template>
+          </app-route>
+          <app-route path="/profile">
+            <template>
+              <portail-profile></portail-profile>
+            </template>
+          </app-route>
+          <app-route path="*" cross-fade>
+            <template>
+              Not Found
+            </template>
+          </app-route>
+        </app-router>
+      </div>
+    </core-drawer-panel>
+  </core-animated-pages>
+
+</template>
+
+<script>
+  require(['elements/portail-app'])
+</script>
+
+</polymer-element>

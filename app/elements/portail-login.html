@@ -1,0 +1,36 @@
+<link rel="import" href="../vendor/polymer/polymer.html">
+<link rel="import" href="../vendor/paper-button/paper-button.html">
+<link rel="import" href="../vendor/core-icon/core-icon.html">
+<link rel="import" href="../elements/portail-provider-icons.html">
+
+<polymer-element name="portail-login" fit layout vertical around-justified>
+  <template>
+    <link rel="stylesheet" href="portail-login.css">
+    <div id="top" flex self-center layout vertical end-justified>
+      <h1 id="header">Portail Bibemus</h1>
+      <p id="notice" hidden?="{{ app.user }}">
+        Bienvenue, pour ouvrir le portail, <br>il faut que tu sois inscrit à un des services ci-dessous.
+      </p>
+      <p id="notice" hidden?="{{ !app.user }}">
+        Tu es déja connecté en temps que {{ app.user.name }}. Tu peux cepependant lier un autre service de connexion à ton compte.
+      </p>
+    </div>
+    <div id="main" flex self-center>
+      <template repeat="{{ provider in app.config.auth.providers }}">
+        <paper-button
+          on-click="{{ loginClick }}"
+          data-provider="{{ provider.id }}"
+          raised
+          class="login-button {{ provider.id }}">
+          <core-icon icon="providers:{{ provider.id }}"></core-icon>
+          <span>Se connecter avec <em>{{ i18n().auth[provider.id].name | capitalize }}</em></span>
+        </paper-button>
+      </template>
+    </div>
+    <div flex></div>
+  </template>
+
+  <script>
+    require(['elements/portail-login'])
+  </script>
+</polymer-element>

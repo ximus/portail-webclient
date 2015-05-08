@@ -1,0 +1,81 @@
+@import "../styles/material";
+
+* {
+  box-sizing: border-box;
+}
+
+/*potail-app {
+  font-family: RobotoDraft,sans-serif;
+  color: #444;
+  fill: #444;
+  font-weight: 400;
+}
+
+:host /deep/ .header {
+  font-size: 1.5em;
+  color: #00BCD4;
+  font-weight: lighter;
+  margin-bottom: 16px;
+}*/
+
+:host {
+  position: relative;
+  height: 100%;
+}
+
+:host /deep/ .notice {
+  /*color: red;*/
+}
+
+.splash {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  /*background-image: url(images/splash.svg);*/
+}
+
+.splash.wide {
+  background-size: 512px;
+}
+
+#logged-in-user-badge {
+  height: 50px;
+  line-height: 50px;
+  img, span {
+    vertical-align: middle;
+  }
+  img {
+    margin-right: 0.6em;
+    height: 40px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  margin-bottom: 2em;
+}
+
+#hamburger {
+  /deep/ core-icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  position: absolute;
+  top: 16px;
+}
+
+app-route, #hamburger {
+  @include md-horizontal-margins;
+}
+
+[selected="main"] #hamburger {
+  z-index: 1;
+}
+
+[drawer] {
+  background: white;
+  padding: 2em 3em;
+
+  paper-button {
+    // counter paper-button padding
+    // margin-left: -0.57em
+  }
+}

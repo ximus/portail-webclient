@@ -1,0 +1,34 @@
+svg {
+  width: 100%;
+  overflow: visible;
+}
+
+path {
+  fill: hsla(0, 0%, 26%, 1);
+}
+
+@keyframes pulse {
+  0% {fill: #32b224;}
+  50% {fill: #3ece29;}
+  100% {fill: #32b224;}
+}
+
+@keyframes open-close {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translate(300px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+path {
+  animation: pulse 3s infinite;
+}
+
+#the-gate-part {
+  animation: open-close 10s infinite, pulse 2s infinite;
+}

@@ -1,0 +1,20 @@
+@import "../vendor/fontawesome/scss/variables";
+
+$fa-font-path: "../vendor/fontawesome/fonts/";
+$fa-css-prefix: 'icon';
+
+@import "../vendor/fontawesome/scss/larger";
+@import "../vendor/fontawesome/scss/mixins";
+@import "../vendor/fontawesome/scss/path";
+
+body /deep/ .#{$fa-css-prefix} {
+  @include fa-icon();
+}
+
+body /deep/ .#{$fa-css-prefix}-2x { font-size: 1.8em; }
+
+body /deep/ .#{$fa-css-prefix}-windows:before { content: $fa-var-windows; }
+body /deep/ .#{$fa-css-prefix}-google:before { content: $fa-var-google; }
+body /deep/ .#{$fa-css-prefix}-yahoo:before { content: $fa-var-yahoo; }
+body /deep/ .#{$fa-css-prefix}-facebook:before { content: $fa-var-facebook; }
+body /deep/ .#{$fa-css-prefix}-twitter:before { content: $fa-var-twitter; }

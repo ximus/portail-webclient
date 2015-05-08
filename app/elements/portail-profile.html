@@ -1,0 +1,59 @@
+<link rel="import" href="../vendor/polymer/polymer.html">
+<link rel="import" href="../vendor/paper-input/paper-input.html">
+<link rel="import" href="../vendor/paper-button/paper-button.html">
+<link rel="import" href="../vendor/paper-fab/paper-fab.html">
+<!-- <link rel="import" href="portail-avatar.html"> -->
+
+<polymer-element name="portail-profile" attributes="app" fit vertical layout around-justified>
+  <template>
+    <style>
+      #buttons, #main {
+        max-width: 300px;
+      }
+
+      paper-input {
+        font-size: 2em;
+      }
+
+      paper-fab {
+        transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1) 500ms, background-color 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        transform: scale(0);
+        transform-origin: 50% 50%;
+      }
+
+      paper-fab[showing] {
+        -webkit-transform: none;
+        transform: none;
+      }
+
+    </style>
+
+    <div id="main" flex vertical layout end-justified self-center>
+      <div class="callout callout-info" hidden?="{{ app.user }}">
+        <!-- <h1>Bienvenue</h1> -->
+        <p>
+          J'ai besoin de ton nom pour te distinguer dans la foule.
+        </p>
+        <p>
+          Si c'est ta première connexion, il faudra qu'un membre parraine ton inscription avant de tu puisses ouvrir le portail
+        </p>
+      </div>
+    </div>
+
+    <span vertical layout center center-justified>
+      <!-- <portail-avatar url="{{ profile.image_url }}" hidden?="{{ !profile.image_url }}"></portail-avatar> -->
+      <paper-input id="name" label="Nom" value="{{ profile.name }}"></paper-input>
+      <!-- <paper-input id="email" label="Email" value="{{ profile.email }}"></paper-input> -->
+    </span>
+
+    <div id="buttons" flex horizontal layout center-justified self-center center>
+      <paper-button on-tap="{{handleLogout}}" hidden?="{{ !app.user }}">Sign Out</paper-button>
+      <div flex></div>
+      <paper-fab id="check" icon="{{ app.user ? 'check' : 'arrow-forward' }}" showing?="{{ profile.name.length }}" on-tap="{{ handleProfileConfirm }}"></paper-fab>
+    </div>
+
+  </template>
+  <script>
+    require(['elements/portail-profile'])
+  </script>
+</polymer-element>

@@ -1,0 +1,25 @@
+<link rel="import" href="../vendor/polymer/polymer.html">
+<link rel="import" href="../vendor/core-ajax/core-ajax.html">
+
+<polymer-element name="portail-datastore">
+  <template>
+
+    <!-- This should only every be used for testing -->
+    <core-ajax
+      auto
+      handleAs="json"
+      url="/dna.json"
+      response="{{ data }}">
+    </core-ajax>
+
+    <core-ajax
+      auto
+      handleAs="json"
+      url="/i18n.json"
+      response="{{ i18n }}">
+    </core-ajax>
+  </template>
+  <script>
+    require(['elements/portail-datastore'])
+  </script>
+</polymer-element>

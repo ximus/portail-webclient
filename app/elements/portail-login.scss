@@ -1,0 +1,73 @@
+@import "../styles/material";
+
+#top {
+  text-align: center
+}
+
+#main, #top {
+  max-width: 400px;
+}
+
+#top #notice {
+  margin-bottom: 3em;
+}
+
+/*      // .btn-adn           { @include btn-social(#d87a68); }
+// .btn-bitbucket     { @include btn-social(#205081); }
+// .btn-dropbox       { @include btn-social(#1087dd); }
+// .btn-flickr        { @include btn-social(#ff0084); }
+// .btn-foursquare    { @include btn-social(#0072b1); }
+// .btn-github        { @include btn-social(#444444); }
+// .btn-instagram     { @include btn-social(#3f729b); }
+// .btn-linkedin      { @include btn-social(#007bb6); }
+// .btn-openid        { @include btn-social(#f7931e); }
+// .btn-reddit        { @include btn-social(#eff7ff, #000); }
+// .btn-soundcloud    { @include btn-social(#ff5500); }
+// .btn-tumblr        { @include btn-social(#2c4762); }
+// .btn-vimeo         { @include btn-social(#1ab7ea); }
+// .btn-vk            { @include btn-social(#587ea3); }*/
+
+.login-button {
+  font-size: 1.3em;
+  color: white;
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin: 0;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  text-transform: none;
+
+
+  em {
+    font-weight: 500;
+    font-style: normal;
+  }
+}
+
+.login-button::shadow .button-content {
+  justify-content: flex-start !important;
+  padding: 0;
+}
+
+.yahoo         { background-color: #720e9e; }
+.facebook      { background-color: #3b5998; }
+.google        { background-color: #dd4b39; }
+.microsoft     { background-color: #2672ec; }
+.twitter       { background-color: #55acee; }
+
+core-icon {
+  vertical-align: middle;
+  margin-right: 0.8em;
+  width: 1.8em !important;
+  height: 1.8em !important;
+}
+
+#header {
+  @include md-typo-display-1;
+}
+
+section {
+  display: inline-block;
+  position: relative;
+}

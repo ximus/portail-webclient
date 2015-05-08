@@ -1,0 +1,103 @@
+@import "../styles/material";
+
+:host {
+  display: block;
+}
+
+#card {
+  @include md-card;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+
+  paper-shadow {
+    padding: 10%;
+    @include mobile-only {
+      padding: 10%;
+    }
+  }
+
+  object, img {
+    width: 100%;
+    display: block;
+  }
+}
+
+#gate-state {
+  font-family: 'Raleway', sans-serif;
+  font-size: 4em;
+  font-weight: 800;
+  margin-top: 1em;
+  @include mobile-only {
+    font-size: 3.4em;
+    margin-top: 0.7em;
+  }
+}
+
+[name=main] {
+  position: relative !important;
+}
+
+
+svg {
+  width: 100%;
+  overflow: hidden;
+}
+
+path {
+  fill: hsla(0, 0%, 15%, 1);
+}
+
+@keyframes pulse {
+  0% {opacity: 1;}
+  50% {opacity: 0.6;}
+  100% {opacity: 1;}
+}
+
+// @keyframes open-close {
+//   0% {
+//     transform: translate(0);
+//   }
+//   50% {
+//     transform: translate(300px);
+//   }
+//   100% {
+//     transform: translate(0);
+//   }
+// }
+
+:host([state=opening]),
+:host([state=closing]) {
+  #gate-state {
+    animation: pulse 3s infinite;
+  }
+}
+
+:host([state=open]) {
+  #the-arrow {
+    opacity: 1;
+  }
+}
+
+
+// -------------
+// Offline stuff
+// -------------
+
+$offline_color: #eee;
+$fade_timing: 400ms;
+path {
+  transition: transform 10s linear, fill $fade_timing ease-out;
+}
+#gate-state {
+  transition: color $fade_timing;
+}
+.offline {
+  path {
+    fill: $offline_color;
+  }
+
+  #gate-state {
+    color: $offline_color;
+  }
+}
