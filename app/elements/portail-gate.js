@@ -11,7 +11,11 @@ var OPENING = 'opening',
 
 Polymer('portail-gate', {
   publish: {
-    state: {value: null, reflect: true}
+    state: {value: null, reflect: true},
+    // viewState reflects the visual state of the gate,
+    // it reflects the state of animations and may lag
+    // behind the real gate state
+    viewState: {value: null, reflect: true}
   },
 
   computed: {
@@ -25,13 +29,16 @@ Polymer('portail-gate', {
   ready: function() {
     // SVGInjector(this.$['gate-vector'])
 
+    var gate = this.$['the-gate-part']
+    gate.addEventListener("transitionend", this.onGateAnimationEnd.bind(this), false)
+
     var config = App.get.config
     var ws = new WebSocket(config.ws_url)
     this.ws = ws
 
     ws.onmessage = function(event) {
       var status = JSON.parse(event.data)
-      log(status)
+      log("got status update", status)
       this.updateStatus(status)
     }.bind(this)
 
@@ -65,31 +72,18 @@ Polymer('portail-gate', {
     }))
   },
 
-  get buttonState() {
-    if (this.state == CLOSED ||
-        this.state == CLOSING) {
-      return 'open'
-    } else {
-      return 'close'
-    }
-  },
-
   updateStatus: function(status) {
     this.state = status.state
     this.position = status.position
   },
 
   stateChanged: function() {
-    if (this.state == OPEN) {
-      this.$['the-arrow'].style.opacity = 1
+    if (this.state === CLOSED ||
+        this.state === CLOSING) {
+      this.buttonState = 'open'
     } else {
-      this.$['the-arrow'].style.opacity = 0
+      this.buttonState = 'close'
     }
-  },
-
-  formattedState: function() {
-    var app = App.get
-    var state = this.status.state
   },
 
   positionChanged: function() {
@@ -100,9 +94,18 @@ Polymer('portail-gate', {
     var gate = this.$['the-gate-part']
     var gateWidth = gate.getBBox().width
     var x = position * gateWidth
-    // console.log("Moving to ", x)
-    gate.style.webkitTransform = gate.style.transform =
-      'translateX(' + x + 'px)';
+    var transform = 'translateX(' + x + 'px)'
+
+    gate.style.webkitTransform = gate.style.transform = transform
+    this.onGateAnimationStart()
+  },
+
+  onGateAnimationStart: function() {
+    this.viewState = this.state
+  },
+
+  onGateAnimationEnd: function() {
+    this.viewState = this.state
   },
 
   formatState: function(state) {
