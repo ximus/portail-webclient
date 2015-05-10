@@ -16,7 +16,8 @@ export default {
 
   logout: function() {
     return fetch('/auth/logout', {
-      method: 'post'
+      method: 'POST',
+      credentials: "same-origin"
     })
   },
 
