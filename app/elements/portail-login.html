@@ -3,11 +3,11 @@
 <link rel="import" href="../vendor/core-icon/core-icon.html">
 <link rel="import" href="../elements/portail-provider-icons.html">
 
-<polymer-element name="portail-login" fit layout vertical around-justified>
+<polymer-element name="portail-login" fit>
   <template>
     <link rel="stylesheet" href="portail-login.css">
-    <div id="top" flex self-center layout vertical end-justified>
-      <h1 id="header">Portail Bibemus</h1>
+    <div id="top">
+      <h1 id="header">1730 <span no-break>Chemin de Bibémus</span></h1>
       <p id="notice" hidden?="{{ app.user }}">
         Bienvenue, pour ouvrir le portail, <br>il faut que tu sois inscrit à un des services ci-dessous.
       </p>
@@ -15,9 +15,11 @@
         Tu es déja connecté en temps que {{ app.user.name }}. Tu peux cepependant lier un autre service de connexion à ton compte.
       </p>
     </div>
-    <div id="main" flex self-center>
+
+    <div id="main" layout vertical>
       <template repeat="{{ provider in app.config.auth.providers }}">
         <paper-button
+          self-center
           on-click="{{ loginClick }}"
           data-provider="{{ provider.id }}"
           raised
@@ -27,7 +29,7 @@
         </paper-button>
       </template>
     </div>
-    <div flex></div>
+
   </template>
 
   <script>

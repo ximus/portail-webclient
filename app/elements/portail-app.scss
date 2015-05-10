@@ -4,27 +4,9 @@
   box-sizing: border-box;
 }
 
-/*potail-app {
-  font-family: RobotoDraft,sans-serif;
-  color: #444;
-  fill: #444;
-  font-weight: 400;
-}
-
-:host /deep/ .header {
-  font-size: 1.5em;
-  color: #00BCD4;
-  font-weight: lighter;
-  margin-bottom: 16px;
-}*/
-
 :host {
   position: relative;
   height: 100%;
-}
-
-:host /deep/ .notice {
-  /*color: red;*/
 }
 
 .splash {
@@ -62,7 +44,7 @@
   top: 16px;
 }
 
-app-route, #hamburger {
+app-route > :last-child, #hamburger {
   @include md-horizontal-margins;
 }
 
@@ -73,9 +55,4 @@ app-route, #hamburger {
 [drawer] {
   background: white;
   padding: 2em 3em;
-
-  paper-button {
-    // counter paper-button padding
-    // margin-left: -0.57em
-  }
 }

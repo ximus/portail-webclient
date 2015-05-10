@@ -13,12 +13,12 @@ $md-horizontal-margin-mobile: 16px;
 $md-horizontal-margin-tablet: 16px + 8px;
 @mixin md-horizontal-margins {
   @include mobile-portrait-and-up {
-    margin-left:  $md-horizontal-margin-mobile;
-    margin-right: $md-horizontal-margin-mobile;
+    padding-left:  $md-horizontal-margin-mobile;
+    padding-right: $md-horizontal-margin-mobile;
   }
   @include tablet-portrait-and-up {
-    margin-left:  $md-horizontal-margin-tablet;
-    margin-right: $md-horizontal-margin-tablet;
+    padding-left:  $md-horizontal-margin-tablet;
+    padding-right: $md-horizontal-margin-tablet;
   }
 }
 

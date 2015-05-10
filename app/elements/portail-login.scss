@@ -1,15 +1,34 @@
 @import "../styles/material";
 
+:host {
+  overflow-y: scroll;
+}
+
+#header {
+  @include md-typo-display-1;
+  padding: 1em 0 0.7em 0;
+  font-size: 2.4em;
+  @include mobile-only {
+    font-size: 2em;
+    padding: 0.4em 0 0.2em 0;
+  }
+}
+
 #top {
   text-align: center
 }
 
 #main, #top {
   max-width: 400px;
+  min-height: min-content;
+  margin: 0 auto;
 }
 
-#top #notice {
+#notice {
   margin-bottom: 3em;
+  @include mobile-only {
+    margin-bottom: 2em;
+  }
 }
 
 /*      // .btn-adn           { @include btn-social(#d87a68); }
@@ -38,6 +57,9 @@
   margin-bottom: 1em;
   text-transform: none;
 
+  @include mobile-only {
+    font-size: 1.1em;
+  }
 
   em {
     font-weight: 500;
@@ -61,10 +83,6 @@ core-icon {
   margin-right: 0.8em;
   width: 1.8em !important;
   height: 1.8em !important;
-}
-
-#header {
-  @include md-typo-display-1;
 }
 
 section {
