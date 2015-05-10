@@ -6,6 +6,15 @@ PolymerExpressions.prototype.i18n = function() {
   return App.get.i18n
 }
 
+// used by the server to send data
+// the idea is to provide a general facility
+// for the server to tag data along any request to the
+// client where any module can listen for this data.
+window.notifyApp = function(event, data) {
+  var app = App.get
+  app.fire(event, data)
+}
+
 Polymer("portail-app", {
   selected: 'splash',
   connected: false,
@@ -21,6 +30,8 @@ Polymer("portail-app", {
     this.whenConfigReady(function() {
       this.startup()
     }.bind(this))
+
+    Auth.init()
 
     if (App.testing) {
       window.app = this
@@ -101,12 +112,12 @@ Polymer("portail-app", {
   },
 
   logout: function() {
+    var app = this
     Auth.logout().then(function() {
-      this.gotoHome()
-      this.user = null
-    }).catch(function() {
-      // TODO: log error
-      alert('une erreur est survenue pendant la deconnexion')
+      app.$.drawer.closeDrawer()
+      app.gotoHome()
+    }).catch(function(e) {
+      log("error logging out", e)
     })
   }
 });

@@ -3,13 +3,13 @@ import App from '../lib/app'
 import log from '../lib/log'
 
 
-window.authPopupCallback = function(response) {
-  document.querySelector("body /deep/ portail-login").loginCallback(response)
-}
-
 Polymer('portail-login', {
   get app() {
     return App.get
+  },
+
+  ready: function() {
+    this.app.addEventListener('login', this.onLogin.bind(this))
   },
 
   capitalize: function(string) {
@@ -22,10 +22,6 @@ Polymer('portail-login', {
   },
 
   loginWith: function(providerID) {
-    // this.$.spinner_wrapper.style.width = this.$.buttons_wrapper.offsetWidth+"px"
-    // this.$.spinner_wrapper.style.height = this.$.buttons_wrapper.offsetHeight+"px"
-    // this.currentPage = 'spinner'
-
     var width = 400
     var height = 600
     var left = (screen.width/2)-(width/2);
@@ -35,8 +31,7 @@ Polymer('portail-login', {
     window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
   },
 
-  loginCallback: function(response) {
-    Auth.handleLogin(response)
+  onLogin: function(event) {
     var app = App.get
     if (app.user) { // user exists
       app.gotoHome()

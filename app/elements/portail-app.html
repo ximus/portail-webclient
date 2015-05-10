@@ -25,7 +25,7 @@
     </div>
 
      <!-- App main -->
-    <core-drawer-panel name="main" responsiveWidth="99999px" cross-fade>
+    <core-drawer-panel id="drawer" name="main" responsiveWidth="99999px" cross-fade>
 
       <!-- Nav Menu -->
       <div drawer hidden?="{{ !user }}">
@@ -44,7 +44,7 @@
       <!-- App current view -->
       <div main>
         <!-- nav menu icon -->
-        <paper-icon-button id="hamburger" core-drawer-toggle icon="menu"></paper-icon-button>
+        <paper-icon-button id="hamburger" core-drawer-toggle icon="menu" hidden?="{{ !user }}"></paper-icon-button>
 
         <!-- Views -->
         <app-router id="router" init="manual" mode="pushstate" core-animated-pages transitions="slide-from-right" on-state-change="{{ routeChanged }}">
