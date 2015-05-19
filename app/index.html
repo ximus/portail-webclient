@@ -19,10 +19,8 @@
 
   <meta name="application-name" content="Portail">
 
-  <script src="vendor/svg-injector/dist/svg-injector.min.js"></script>
+  <!-- <script src="vendor/svg-injector/dist/svg-injector.min.js"></script> -->
   <script src="vendor/requirejs/require.js"></script>
-<!--   <script src="vendor/es6-module-loader/dist/es6-module-loader.js"></script>
-  <script src="vendor/system.js/dist/system.js"></script> -->
 
   <!--
   Chrome 35 has old :host behavior before :host-context addition.
@@ -38,19 +36,19 @@
   <script src="vendor/webcomponentsjs/webcomponents-lite.min.js"></script>
 
   <link href='http://fonts.googleapis.com/css?family=Raleway:800' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="vendor/normalize-css/normalize.css" shim-shadowdom>
-  <link rel="stylesheet" href="styles/index.css" shim-shadowdom>
+  <link href='vendor/roboto-fontface/css/roboto-fontface.css' rel='stylesheet' type='text/css'>
 
-  <link rel="import" href="polyfills/fonts/roboto.html">
+  <link rel="import" href="vendor/paper-styles/paper-styles.html">
+  <link rel="import" href="styles/theme.html">
+
+  <link rel="stylesheet" href="vendor/normalize-css/normalize.css">
+  <link rel="stylesheet" href="styles/index.css">
+
   <link rel="import" href="elements/portail-app.html">
 
   <script>
     window.dev = true
-
-    require(['lib/app.js'], function(App) {
-      App.loadConfig()
-      App.loadLocales()
-    })
+    require(['index.js'])
   </script>
 
   <script>
@@ -62,6 +60,6 @@
 
 </head>
 <body unresolved>
-  <portail-app fit></portail-app>
+  <portail-app class="fit"></portail-app>
 </body>
 </html>

@@ -1,24 +1,20 @@
 import Auth from '../lib/auth'
 import App from '../lib/app'
 import log from '../lib/log'
+import util from '../lib/util'
 
-
-Polymer('portail-login', {
-  get app() {
-    return App.get
-  },
+Polymer({
+  is: 'portail-login',
 
   ready: function() {
-    this.app.addEventListener('login', this.onLogin.bind(this))
+    var app = App.get
+    this.app = app
+    app.addEventListener('login', this.onLogin.bind(this))
   },
 
-  capitalize: function(string) {
-    if (!string) return ''
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  },
-
-  loginClick: function(event, detail, sender) {
-    this.loginWith(sender.attributes['data-provider'].value)
+  loginClick: function(event) {
+    var button = event.currentTarget
+    this.loginWith(button.dataset.provider)
   },
 
   loginWith: function(providerID) {
@@ -44,5 +40,17 @@ Polymer('portail-login', {
     if (id.match(/(windows|microsoft)/)) return 'windows'
     if (id.match(/google/)) return 'google'
     return id
+  },
+
+  providerName: function(id) {
+    return util.capitalize(App.get.i18n.auth[id].name)
+  },
+
+  providerBtnClass: function(id) {
+    return "login-button self-center " + id
+  },
+
+  providerIcon: function(id) {
+    return "providers:" + id
   }
-});
+})

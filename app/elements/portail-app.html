@@ -1,82 +1,74 @@
 <link rel="import" href="../vendor/polymer/polymer.html">
-<link rel="import" href="../vendor/core-drawer-panel/core-drawer-panel.html">
-<link rel="import" href="../vendor/core-animated-pages/core-animated-pages.html">
-<link rel="import" href="../vendor/core-animated-pages/transitions/cross-fade.html">
-<link rel="import" href="../vendor/core-animated-pages/transitions/slide-from-right.html">
+<link rel="import" href="../vendor/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../vendor/iron-icons/iron-icons.html">
+<link rel="import" href="../vendor/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../vendor/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../vendor/neon-animation/neon-animatable.html">
+<link rel="import" href="../vendor/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../vendor/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../vendor/paper-spinner/paper-spinner.html">
-<link rel="import" href="../vendor/app-router/app-router.html">
+<link rel="import" href="../vendor/app-router/src/app-router.html">
 <link rel="import" href="portail-login.html">
 <link rel="import" href="portail-profile.html">
 <link rel="import" href="portail-gate.html">
-<link rel="import" href="portail-appbar.html">
 
-<polymer-element name="portail-app" fit vertical layout>
-
+<dom-module id="portail-app">
+<link rel="import" type="css" href="portail-app.css">
 <template>
-  <link rel="stylesheet" href="portail-app.css">
 
-  <core-animated-pages fit selected="{{ selected }}" transitions="cross-fade-all">
+  <neon-animated-pages class="fit" selected="[[ selected ]]" attr-for-selected="name" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
 
     <!-- Splash Screen -->
-    <div name="splash" cross-fade>
-      <span fit layout vertical center-justified center class="splash {{ {wide: wide} | tokenList }}">
+    <neon-animatable name="splash">
+      <span class="layout vertical center-justified center fit splash">
         <paper-spinner active></paper-spinner>
       </span>
-    </div>
+    </neon-animatable>
 
-     <!-- App main -->
-    <core-drawer-panel id="drawer" name="main" responsiveWidth="99999px" cross-fade>
+    <!-- App main -->
+    <neon-animatable name="main">
+      <paper-drawer-panel id="drawer" disableEdgeSwipe responsive-width="99999px">
 
-      <!-- Nav Menu -->
-      <div drawer hidden?="{{ !user }}">
-        <div id="logged-in-user-badge">
-          <img src="{{ user.image_url }}">
-          <span>{{ user.name }}</span>
+        <!-- Nav Menu -->
+        <div drawer hidden$="[[ !authenticated ]]">
+          <div id="logged-in-user-badge">
+            <img src="[[ user.image_url ]]">
+            <span>[[ user.name ]]</span>
+          </div>
+          <paper-button on-click="profileClick">
+            Profile
+          </paper-button>
+          <paper-button on-click="logout">
+            Se déconnecter
+          </paper-button>
         </div>
-        <paper-button>
-          Profile
-        </paper-button>
-        <paper-button on-click="{{ logout }}">
-          Se déconnecter
-        </paper-button>
-      </div>
 
-      <!-- App current view -->
-      <div main>
-        <!-- nav menu icon -->
-        <paper-icon-button id="hamburger" core-drawer-toggle icon="menu" hidden?="{{ !user }}"></paper-icon-button>
+        <!-- App current view -->
+        <div main>
+          <!-- nav menu icon -->
+          <paper-icon-button id="hamburger" paper-drawer-toggle icon="menu" hidden$="[[ !authenticated ]]"></paper-icon-button>
 
-        <!-- Views -->
-        <app-router id="router" init="manual" mode="pushstate" core-animated-pages transitions="slide-from-right" on-state-change="{{ routeChanged }}">
-          <app-route path="/login">
-            <template>
-              <portail-login></portail-login>
-            </template>
-          </app-route>
-          <app-route path="/gate">
-            <template>
-              <portail-gate></portail-gate>
-            </template>
-          </app-route>
-          <app-route path="/profile">
-            <template>
-              <portail-profile></portail-profile>
-            </template>
-          </app-route>
-          <app-route path="*" cross-fade>
-            <template>
-              Not Found
-            </template>
-          </app-route>
-        </app-router>
-      </div>
-    </core-drawer-panel>
-  </core-animated-pages>
+          <!-- Views -->
+          <!-- when app-router supports polymer templates, revert to <template><element></template> inside routes so that views don't get destroyed on route change -->
+          <app-router id="router" init="manual" mode="pushstate" iron-animated-pages transitions="slide-from-right" on-state-change="routeChanged">
+            <app-route path="/login" element="portail-login"></app-route>
+            <app-route path="/gate" element="portail-gate"></app-route>
+            <app-route path="/profile" element="portail-profile"></app-route>
+            <app-route path="*">
+              <template>
+                Not Found
+              </template>
+            </app-route>
+          </app-router>
+        </div>
+      </paper-drawer-panel>
+    </neon-animatable>
+    <!-- EOF App Main -->
+  </neon-animated-pages>
 
 </template>
 
 <script>
   require(['elements/portail-app'])
 </script>
-
-</polymer-element>
+</dom-module>

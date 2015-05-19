@@ -7,6 +7,10 @@
 :host {
   position: relative;
   height: 100%;
+
+  @apply(--layout);
+  @apply(--layout-fit);
+  @apply(--layout-vertical);
 }
 
 .splash {
@@ -36,15 +40,16 @@
 }
 
 #hamburger {
-  /deep/ core-icon {
+  /deep/ iron-icon {
     width: 30px !important;
     height: 30px !important;
   }
   position: absolute;
   top: 16px;
+  left: 16px;
 }
 
-app-route > :last-child, #hamburger {
+app-route > :last-child {
   @include md-horizontal-margins;
 }
 

@@ -9,25 +9,43 @@ var OPENING = 'opening',
     CLOSING = 'closing'
 
 
-Polymer('portail-gate', {
-  publish: {
-    state: {value: null, reflect: true},
+Polymer({
+  is: 'portail-gate',
+
+  properties: {
+    state: {
+      type: String,
+      observer: 'stateChanged'
+    },
     // viewState reflects the visual state of the gate,
     // it reflects the state of animations and may lag
     // behind the real gate state
-    viewState: {value: null, reflect: true}
+    viewState: {
+      type: String,
+      reflectToAttribute: true
+    },
+    buttonState: {
+      type: String,
+      value: 'open'
+    },
+    position: {
+      type: Number,
+      observer: 'positionChanged'
+    },
+    isReady: {
+      type: Boolean,
+      computed: "isReadyState(state)"
+    }
   },
 
-  computed: {
-    isReady: "state && state != 'unknown'"
-  },
-
-  state: null,
-  position: null,
   ws: null,
 
   ready: function() {
     // SVGInjector(this.$['gate-vector'])
+
+    if (App.testing) {
+      window.gate = this
+    }
 
     var gate = this.$['the-gate-part']
     gate.addEventListener("transitionend", this.onGateAnimationEnd.bind(this), false)
@@ -64,6 +82,10 @@ Polymer('portail-gate', {
     // client.on('transport:up', function() {
     //   // the client is online
     // });
+  },
+
+  isReadyState: function(state) {
+    return state && state !== 'unknown'
   },
 
   toggleGate: function() {
@@ -121,5 +143,15 @@ Polymer('portail-gate', {
       default:
         return '...'
     }
+  },
+
+  cardClass: function(isReady) {
+    var cls = "self-center shadow-elevation-1"
+    if (!isReady) cls += " offline"
+    return cls
+  },
+
+  toggleBtnIcon: function(state) {
+    return "portail:" + state + "-gate"
   }
 });

@@ -3,6 +3,10 @@
 :host {
   display: block;
   padding: 8%;
+
+  @apply(--layout);
+  @apply(--layout-fit);
+  @apply(--layout-center-justified);
 }
 
 #card {
@@ -10,10 +14,7 @@
   text-align: center;
   max-width: 520px;
   width: 100%;
-
-  paper-shadow {
-    padding: 10%;
-  }
+  padding: 10%;
 
   object, img {
     width: 100%;
@@ -68,8 +69,8 @@ path {
   100% {opacity: 1;}
 }
 
-:host([viewstate=opening]),
-:host([viewstate=closing]) {
+:host([view-state=opening]),
+:host([view-state=closing]) {
   #gate-state {
     animation: pulse 3s infinite;
   }
@@ -96,7 +97,7 @@ path {
   fill: #00B500;
 }
 
-:host([viewstate=open]) {
+:host([view-state=open]) {
   #the-arrow {
     opacity: 1;
     animation: comein 3s 1;

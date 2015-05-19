@@ -15,6 +15,24 @@ var App = {
     return this._instance
   },
 
+  _callbacks: [],
+
+  whenReady: function(cb) {
+    if (App.get) {
+      cb()
+    }
+    else {
+      this._callbacks.push(cb)
+    }
+  },
+
+  notifyReady: function() {
+    log("ready!")
+    this._callbacks.forEach(function (cb) {
+      cb()
+    })
+  },
+
   loadConfig: function() {
     var req = new XMLHttpRequest();
     req.open("GET", "/dna.json", true);
@@ -23,13 +41,10 @@ var App = {
         log.error("failed to load config")
         return
       }
-      Polymer.whenReady(function() {
-        // for some reason I can't querySelector the app in this loop tick
-        setTimeout(function() {
-          var app = App.get
-          var data = JSON.parse(req.response)
-          app.config = new ConfigObject(data)
-        })
+      App.whenReady(function() {
+        var app = App.get
+        var data = JSON.parse(req.response)
+        app.config = new ConfigObject(data)
       })
       log("loaded config")
     }
@@ -44,13 +59,10 @@ var App = {
         log.error("failed to load locales")
         return
       }
-      Polymer.whenReady(function() {
-        // for some reason I can't querySelector the app in this loop tick
-        setTimeout(function() {
-          var app = App.get
-          var data = JSON.parse(req.response)
-          app.i18n = new ConfigObject(data)
-        })
+      App.whenReady(function() {
+        var app = App.get
+        var data = JSON.parse(req.response)
+        app.i18n = new ConfigObject(data)
       })
       log("loaded locales")
     }

@@ -2,9 +2,6 @@ import Auth from '../lib/auth'
 import App from '../lib/app'
 import log from '../lib/log'
 
-PolymerExpressions.prototype.i18n = function() {
-  return App.get.i18n
-}
 
 // used by the server to send data
 // the idea is to provide a general facility
@@ -15,12 +12,38 @@ window.notifyApp = function(event, data) {
   app.fire(event, data)
 }
 
-Polymer("portail-app", {
-  selected: 'splash',
+Polymer({
+  is: "portail-app",
+
+  properties: {
+    config: {
+      type: Object,
+      observer: 'configChanged'
+    },
+    iid: String,
+    user: {
+      type: Object,
+      value: null
+    },
+    authenticated: {
+      type: Boolean,
+      computed: 'defined(user)'
+    },
+    selected: {
+      type: String,
+      value: 'splash'
+    }
+  },
+
+  // helps cast non boolean properties in view bindings
+  defined: function(a) { return !!a },
+
   connected: false,
   minSplashTime: 1000,
 
   ready: function() {
+    App.notifyReady()
+
     // this.test = window.location.search.indexOf('test') >= 0;
     // this.offline = this.test || window.location.search.indexOf('offline') >= 0;
     this.router = this.$.router
@@ -46,13 +69,13 @@ Polymer("portail-app", {
     var elapsed = Date.now() - this.readyTime;
     var t = this.minSplashTime - elapsed;
 
-    this.async('completeStartup', null, t > 0 ? t : 0);
+    this.async(this.completeStartup, t > 0 ? t : 0);
   },
 
   completeStartup: function() {
     this.router.init()
     this.selected = 'main'
-    log("started")
+    log("startup complete")
   },
 
   configChanged: function() {
@@ -77,6 +100,7 @@ Polymer("portail-app", {
   },
 
   routeChanged: function(event) {
+    log("routeChanged()")
     var path = event.detail.path
     if (path == '/') {
       event.preventDefault()
@@ -109,6 +133,12 @@ Polymer("portail-app", {
 
   gotoProfile: function() {
     this.router.go('/profile')
+  },
+
+  profileClick: function() {
+    var app = this
+    app.gotoProfile()
+    app.$.drawer.closeDrawer()
   },
 
   logout: function() {

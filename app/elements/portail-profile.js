@@ -2,18 +2,20 @@ import App from '../lib/app'
 import profileSeedCache from '../lib/profile_seed_cache'
 import log from '../lib/log'
 
-Polymer('portail-profile', {
-  profile: {},
+Polymer({
+  is: 'portail-profile',
 
-  get app() {
-    return App.get
+  properties: {
+    app: Object,
+    profile: Object
   },
 
-  observe: {
-    'app.iid app.user':  'reloadProfile'
-  },
+  observers: [
+    'reloadProfile(app.user, app.iid)'
+  ],
 
   ready: function() {
+    this.app = App.get
     this.reloadProfile()
   },
 
@@ -32,7 +34,11 @@ Polymer('portail-profile', {
     }
   },
 
-  handleProfileConfirm: function() {
+  saveIcon: function(user) {
+    return user ? 'check' : 'arrow-forward'
+  },
+
+  handleSave: function() {
     // $http.put('/profile', {profile: $scope.profile}).success(function(response) {
     //   var isNewUser = false
     //   if (!$scope.auth.currentUser) isNewUser = true

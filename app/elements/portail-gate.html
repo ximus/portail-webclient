@@ -1,15 +1,12 @@
 <link rel="import" href="../vendor/polymer/polymer.html">
-<link rel="import" href="../vendor/core-animated-pages/core-animated-pages.html">
-<link rel="import" href="../vendor/core-animated-pages/transitions/cross-fade.html">
-<link rel="import" href="../vendor/paper-spinner/paper-spinner.html">
+<link rel="import" href="../vendor/paper-fab/paper-fab.html">
 <link rel="import" href="portail-icons.html">
 
-<polymer-element name="portail-gate" fit vertical layout center-justified>
+<dom-module id="portail-gate">
+  <link rel="import" type="css" href="portail-gate.css">
   <template>
-    <link rel="stylesheet" href="portail-gate.css">
 
-    <div id="card" class="{{ {offline: !isReady} | tokenList }}" self-center>
-      <paper-shadow z="1">
+    <div id="card" class$="[[ cardClass(isReady) ]]">
         <!-- <img id="gate-vector" src="../images/gate.svg"></img> -->
         <svg viewBox="0 0 513.897 235.819">
           <g>
@@ -45,15 +42,15 @@
     L251.81,120.543z"/>
           </g>
         </svg>
-        <div id="gate-state">{{ viewState | formatState }}</div>
-      </paper-shadow>
+        <div id="gate-state">[[ formatState(viewState) ]]</div>
     </div>
 
 
-    <paper-fab id="the-button" icon="portail:{{buttonState}}-gate" aria-label="open or close the gate" on-click="{{ toggleGate }}"></paper-fab>
-  </template>
+    <paper-fab id="the-button" icon$="[[ toggleBtnIcon(buttonState) ]]" aria-label="open or close the gate" on-click="toggleGate"></paper-fab>
 
-  <script>
-    require(['elements/portail-gate.js'])
-  </script>
-</polymer-element>
+  </template>
+</dom-module>
+
+<script>
+  require(['elements/portail-gate.js'])
+</script>
