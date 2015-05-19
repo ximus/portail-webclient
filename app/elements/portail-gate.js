@@ -9,7 +9,9 @@ var OPENING = 'opening',
     CLOSING = 'closing'
 
 
-Polymer('portail-gate', {
+Polymer({
+  is: 'portail-gate',
+
   publish: {
     state: {value: null, reflect: true},
     // viewState reflects the visual state of the gate,

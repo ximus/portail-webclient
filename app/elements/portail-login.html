@@ -1,11 +1,12 @@
 <link rel="import" href="../vendor/polymer/polymer.html">
 <link rel="import" href="../vendor/paper-button/paper-button.html">
-<link rel="import" href="../vendor/core-icon/core-icon.html">
+<link rel="import" href="../vendor/iron-icon/iron-icon.html">
 <link rel="import" href="../elements/portail-provider-icons.html">
+<link rel="import" href="../vendor/layout/layout.html">
 
-<polymer-element name="portail-login" fit>
+<dom-module id="portail-login" class="fit">
+  <link rel="stylesheet" href="portail-login.css">
   <template>
-    <link rel="stylesheet" href="portail-login.css">
     <div id="top">
       <h1 id="header">1730 <span no-break>Chemin de Bibémus</span></h1>
       <p id="notice" hidden?="{{ app.user }}">
@@ -16,7 +17,7 @@
       </p>
     </div>
 
-    <div id="main" layout vertical>
+    <div id="main" class="layout vertical">
       <template repeat="{{ provider in app.config.auth.providers }}">
         <paper-button
           self-center
@@ -24,15 +25,15 @@
           data-provider="{{ provider.id }}"
           raised
           class="login-button {{ provider.id }}">
-          <core-icon icon="providers:{{ provider.id }}"></core-icon>
+          <iron-icon icon="providers:{{ provider.id }}"></iron-icon>
           <span>Se connecter avec <em>{{ i18n().auth[provider.id].name | capitalize }}</em></span>
         </paper-button>
       </template>
     </div>
 
   </template>
+</dom-module>
 
-  <script>
-    require(['elements/portail-login'])
-  </script>
-</polymer-element>
+<script>
+  require(['elements/portail-login'])
+</script>

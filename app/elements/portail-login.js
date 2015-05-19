@@ -3,7 +3,9 @@ import App from '../lib/app'
 import log from '../lib/log'
 
 
-Polymer('portail-login', {
+Polymer({
+  is: 'portail-login',
+
   get app() {
     return App.get
   },

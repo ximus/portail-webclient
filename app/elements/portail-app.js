@@ -15,7 +15,9 @@ window.notifyApp = function(event, data) {
   app.fire(event, data)
 }
 
-Polymer("portail-app", {
+Polymer({
+  is: "portail-app",
+
   selected: 'splash',
   connected: false,
   minSplashTime: 1000,

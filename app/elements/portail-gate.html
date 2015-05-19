@@ -1,12 +1,13 @@
 <link rel="import" href="../vendor/polymer/polymer.html">
-<link rel="import" href="../vendor/core-animated-pages/core-animated-pages.html">
-<link rel="import" href="../vendor/core-animated-pages/transitions/cross-fade.html">
+<link rel="import" href="../vendor/iron-animated-pages/iron-animated-pages.html">
+<link rel="import" href="../vendor/iron-animated-pages/transitions/cross-fade.html">
 <link rel="import" href="../vendor/paper-spinner/paper-spinner.html">
+<link rel="import" href="../vendor/layout/layout.html">
 <link rel="import" href="portail-icons.html">
 
-<polymer-element name="portail-gate" fit vertical layout center-justified>
+<dom-module id="portail-gate" class="fit vertical layout center-justified">
+  <link rel="stylesheet" href="portail-gate.css">
   <template>
-    <link rel="stylesheet" href="portail-gate.css">
 
     <div id="card" class="{{ {offline: !isReady} | tokenList }}" self-center>
       <paper-shadow z="1">
@@ -51,9 +52,10 @@
 
 
     <paper-fab id="the-button" icon="portail:{{buttonState}}-gate" aria-label="open or close the gate" on-click="{{ toggleGate }}"></paper-fab>
-  </template>
 
-  <script>
-    require(['elements/portail-gate.js'])
-  </script>
-</polymer-element>
+  </template>
+</dom-module>
+
+<script>
+  require(['elements/portail-gate.js'])
+</script>

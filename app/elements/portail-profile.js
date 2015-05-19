@@ -2,7 +2,9 @@ import App from '../lib/app'
 import profileSeedCache from '../lib/profile_seed_cache'
 import log from '../lib/log'
 
-Polymer('portail-profile', {
+Polymer({
+  is: 'portail-profile',
+
   profile: {},
 
   get app() {
