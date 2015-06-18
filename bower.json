@@ -19,10 +19,10 @@
     "requirejs": "~2.1.15",
     "svg-injector": "~1.1.2",
     "fetch": "~0.8.1",
-    "iron-elements": "PolymerElements/iron-elements#~0.9.1",
-    "paper-elements": "PolymerElements/paper-elements#~0.9.1",
-    "polymer": "~0.9.0",
-    "app-router": "~2.6.1",
+    "iron-elements": "~1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.0",
+    "polymer": "~1.0.0",
+    "app-router": "git@github.com:plequang/app-router.git#polymer-1.0-tests-migration",
     "layout": "Polymer/layout"
   }
 }

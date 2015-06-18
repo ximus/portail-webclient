@@ -155,10 +155,7 @@ $md-appbar-height-mobile-landscape: 48px;
 }
 
 @mixin md-card {
-  paper-shadow {
-    padding: 16px;
-  }
+  padding: 16px;
   border-radius: 2px;
   background: white;
-  // box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.12), 0px 1px 1px 0px rgba(0,0,0,0.50);
 }

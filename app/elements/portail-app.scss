@@ -7,6 +7,10 @@
 :host {
   position: relative;
   height: 100%;
+
+  @apply(--layout);
+  @apply(--layout-fit);
+  @apply(--layout-vertical);
 }
 
 .splash {
@@ -42,9 +46,10 @@
   }
   position: absolute;
   top: 16px;
+  left: 16px;
 }
 
-app-route > :last-child, #hamburger {
+app-route > :last-child {
   @include md-horizontal-margins;
 }
 

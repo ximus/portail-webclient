@@ -1,3 +1,5 @@
+var fs = require('fs')
+
 var gulp = require("gulp"),
     _ = require("lodash"),
     // Utils
@@ -6,7 +8,10 @@ var gulp = require("gulp"),
     filter = require("gulp-filter"),
     notify = require("gulp-notify"),
     merge  = require("merge-stream"),
+    replace = require("gulp-replace"),
     path   = require("path"),
+    debug = require('gulp-debug'),
+    merge = require('merge2'),
 
     // Transformers
     sass = require("gulp-ruby-sass"),
@@ -40,30 +45,26 @@ var paths = {
 }
 
 var watchOpts = { interval: 500 }
+var to5Opts = { modules: 'amd' }
 
-gulp.task("html", function() {
-  return gulp.src(paths.html)
-    // .pipe(htmlmin({
-    //   removeComments: true,
-    //   collapseWhitespace: true,
-    //   removeAttributeQuotes: true,
-    //   removeRedundantAttributes: true,
-    //   minifyJS: true,
-    //   minifyCSS: true
-    // }))
-    .on("error", notify.onError("[HTML] <%= error.message %>"))
-    .pipe(livereload())
-    .pipe(gulp.dest(paths.build))
-})
+function htmlStream(src) {
+  return src
+    // Currently polymer is really not helpful with shiming shadow dom in
+    // index.html, gotta inline index.css
+    .pipe(replace('<link rel="stylesheet" href="styles/index.css">', function(s) {
+        var style = fs.readFileSync(paths.build+'/styles/index.css', 'utf8')
+        return '<link rel="import" href="vendor/polymer/polymer.html">\n<style is="custom-style">\n' + style + '\n</style>'
+    }))
+}
 
+// Scripts does both html and scripts as they need to share the to5 step
+// to share the same js module space
 gulp.task("scripts", function() {
   var src = paths.scripts
-  src = src.concat(paths.html)
-  return gulp.src(src)
-    .pipe(to5({
-      modules: 'amd'
-    }))
-    .on("error", notify.onError("[JS] <%= error.message%>"))
+  src.concat(paths.html)
+  return htmlStream(gulp.src(src))
+    .pipe(to5(to5Opts))
+    .on("error", notify.onError("[Scripts] <%= error.message%>"))
     .pipe(livereload())
     .pipe(gulp.dest(paths.build))
 })
@@ -95,7 +96,7 @@ gulp.task("copy", function() {
     .pipe(gulp.dest(paths.build))
 })
 
-gulp.task("build", ["styles", "scripts", "copy"], function() {
+gulp.task("build", ["styles", "scripts", /*"html",*/ "copy"], function() {
   return gulp.src(paths.build)
     .pipe(notify("Build done"))
 })
@@ -137,8 +138,7 @@ gulp.task("watch", function() {
   livereload.listen({basePath: paths.build})
   watch(paths.styles_watched, watchOpts, ["styles"])
   watch(paths.scripts, watchOpts,        ["scripts"])
-  // gulp.watch(paths.html,       ["html"])
-  watch(paths.html, watchOpts,           ["scripts"])
+  // watch(paths.html, watchOpts,           ["html"])
   watch(paths.misc_copy, watchOpts,      ["copy"])
 })
 

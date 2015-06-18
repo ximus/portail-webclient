@@ -2,11 +2,16 @@
 <link rel="import" href="../vendor/paper-input/paper-input.html">
 <link rel="import" href="../vendor/paper-button/paper-button.html">
 <link rel="import" href="../vendor/paper-fab/paper-fab.html">
-<link rel="import" href="../vendor/layout/layout.html">
-<!-- <link rel="import" href="portail-avatar.html"> -->
 
-<dom-module id="portail-profile" attributes="app" class="fit vertical layout around-justified">
-  <style>
+<dom-module id="portail-profile">
+  <style is="custom-style">
+    :host {
+      @apply(--layout);
+      @apply(--layout-fit);
+      @apply(--layout-vertical);
+      @apply(--layout-around-justified);
+    }
+
     #buttons, #main {
       max-width: 300px;
     }
@@ -30,7 +35,7 @@
   <template>
 
     <div id="main" class="flex vertical layout end-justified self-center">
-      <div class="callout callout-info" hidden?="{{ app.user }}">
+      <div class="callout callout-info" hidden$="{{ app.user }}">
         <!-- <h1>Bienvenue</h1> -->
         <p>
           J'ai besoin de ton nom pour te distinguer dans la foule.
@@ -42,13 +47,13 @@
     </div>
 
     <span class="vertical layout center center-justified">
-      <!-- <portail-avatar url="{{ profile.image_url }}" hidden?="{{ !profile.image_url }}"></portail-avatar> -->
+      <!-- <portail-avatar url="{{ profile.image_url }}" hidden$="{{ !profile.image_url }}"></portail-avatar> -->
       <paper-input id="name" label="Nom" value="{{ profile.name }}"></paper-input>
       <!-- <paper-input id="email" label="Email" value="{{ profile.email }}"></paper-input> -->
     </span>
 
     <div id="buttons" class="flex horizontal layout center-justified self-center center">
-      <paper-button on-tap="{{handleLogout}}" hidden?="{{ !app.user }}">Sign Out</paper-button>
+      <paper-button on-tap="{{handleLogout}}" hidden$="{{ !app.user }}">Sign Out</paper-button>
       <div flex></div>
       <paper-fab id="check" icon="{{ app.user ? 'check' : 'arrow-forward' }}" showing?="{{ profile.name.length }}" on-tap="{{ handleProfileConfirm }}"></paper-fab>
     </div>

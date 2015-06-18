@@ -11,6 +11,10 @@ $border-radius-small:       0;
 
 // @import "callout";
 
+:root {
+  --accent-color: blue;
+}
+
 * {
   box-sizing: border-box;
 }
