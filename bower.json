@@ -23,6 +23,7 @@
     "paper-elements": "PolymerElements/paper-elements#~1.0.0",
     "polymer": "~1.0.0",
     "app-router": "git@github.com:plequang/app-router.git#polymer-1.0-tests-migration",
-    "layout": "Polymer/layout"
+    "layout": "Polymer/layout",
+    "roboto-fontface": "~0.4.2"
   }
 }

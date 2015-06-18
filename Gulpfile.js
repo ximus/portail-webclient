@@ -53,7 +53,7 @@ function htmlStream(src) {
     // index.html, gotta inline index.css
     .pipe(replace('<link rel="stylesheet" href="styles/index.css">', function(s) {
         var style = fs.readFileSync(paths.build+'/styles/index.css', 'utf8')
-        return '<link rel="import" href="vendor/polymer/polymer.html">\n<style is="custom-style">\n' + style + '\n</style>'
+        return '<link rel="import" href="vendor/polymer/polymer.html">\n<style is="custom-style">\n' + style + '\n</style>\n'
     }))
 }
 
@@ -61,7 +61,7 @@ function htmlStream(src) {
 // to share the same js module space
 gulp.task("scripts", function() {
   var src = paths.scripts
-  src.concat(paths.html)
+  src = src.concat(paths.html)
   return htmlStream(gulp.src(src))
     .pipe(to5(to5Opts))
     .on("error", notify.onError("[Scripts] <%= error.message%>"))
@@ -139,6 +139,7 @@ gulp.task("watch", function() {
   watch(paths.styles_watched, watchOpts, ["styles"])
   watch(paths.scripts, watchOpts,        ["scripts"])
   // watch(paths.html, watchOpts,           ["html"])
+  watch(paths.html, watchOpts,           ["scripts"])
   watch(paths.misc_copy, watchOpts,      ["copy"])
 })
 

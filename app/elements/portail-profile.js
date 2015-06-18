@@ -5,17 +5,17 @@ import log from '../lib/log'
 Polymer({
   is: 'portail-profile',
 
-  profile: {},
-
-  get app() {
-    return App.get
+  properties: {
+    app: Object,
+    profile: Object
   },
 
-  observe: {
-    'app.iid app.user':  'reloadProfile'
-  },
+  observers: [
+    'reloadProfile(app.user, app.iid)'
+  ],
 
   ready: function() {
+    this.app = App.get
     this.reloadProfile()
   },
 
@@ -34,7 +34,11 @@ Polymer({
     }
   },
 
-  handleProfileConfirm: function() {
+  saveIcon: function(user) {
+    return user ? 'check' : 'arrow-forward'
+  },
+
+  handleSave: function() {
     // $http.put('/profile', {profile: $scope.profile}).success(function(response) {
     //   var isNewUser = false
     //   if (!$scope.auth.currentUser) isNewUser = true

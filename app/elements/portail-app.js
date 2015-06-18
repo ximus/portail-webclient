@@ -100,6 +100,7 @@ Polymer({
   },
 
   routeChanged: function(event) {
+    log("routeChanged()")
     var path = event.detail.path
     if (path == '/') {
       event.preventDefault()
@@ -132,6 +133,12 @@ Polymer({
 
   gotoProfile: function() {
     this.router.go('/profile')
+  },
+
+  profileClick: function() {
+    var app = this
+    app.gotoProfile()
+    app.$.drawer.closeDrawer()
   },
 
   logout: function() {

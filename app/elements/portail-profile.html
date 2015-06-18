@@ -13,6 +13,7 @@
     }
 
     #buttons, #main {
+      width: 100%;
       max-width: 300px;
     }
 
@@ -35,7 +36,7 @@
   <template>
 
     <div id="main" class="flex vertical layout end-justified self-center">
-      <div class="callout callout-info" hidden$="{{ app.user }}">
+      <div class="callout callout-info" hidden$="[[ app.user ]]">
         <!-- <h1>Bienvenue</h1> -->
         <p>
           J'ai besoin de ton nom pour te distinguer dans la foule.
@@ -47,15 +48,14 @@
     </div>
 
     <span class="vertical layout center center-justified">
-      <!-- <portail-avatar url="{{ profile.image_url }}" hidden$="{{ !profile.image_url }}"></portail-avatar> -->
-      <paper-input id="name" label="Nom" value="{{ profile.name }}"></paper-input>
+      <paper-input id="name" label="Nom" value="[[ profile.name ]]"></paper-input>
       <!-- <paper-input id="email" label="Email" value="{{ profile.email }}"></paper-input> -->
     </span>
 
     <div id="buttons" class="flex horizontal layout center-justified self-center center">
-      <paper-button on-tap="{{handleLogout}}" hidden$="{{ !app.user }}">Sign Out</paper-button>
-      <div flex></div>
-      <paper-fab id="check" icon="{{ app.user ? 'check' : 'arrow-forward' }}" showing?="{{ profile.name.length }}" on-tap="{{ handleProfileConfirm }}"></paper-fab>
+      <paper-button on-tap="handleLogout" hidden$="[[ !app.user ]]">Sign Out</paper-button>
+      <div class="flex"></div>
+      <paper-fab id="check" icon="[[ saveIcon(app.user) ]]" showing$="[[ profile.name.length ]]" on-tap="handleSave"></paper-fab>
     </div>
 
   </template>

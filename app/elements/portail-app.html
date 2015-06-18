@@ -16,7 +16,7 @@
 <link rel="import" type="css" href="portail-app.css">
 <template>
 
-  <neon-animated-pages class="fit" selected$="[[ selected ]]" attr-for-selected="name" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
+  <neon-animated-pages class="fit" selected="[[ selected ]]" attr-for-selected="name" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
 
     <!-- Splash Screen -->
     <neon-animatable name="splash">
@@ -35,7 +35,7 @@
             <img src="{{ user.image_url }}">
             <span>{{ user.name }}</span>
           </div>
-          <paper-button>
+          <paper-button on-click="profileClick">
             Profile
           </paper-button>
           <paper-button on-click="logout">

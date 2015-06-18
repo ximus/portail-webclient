@@ -10,7 +10,7 @@
     <div id="top">
       <h1 id="header">1730 <span no-break>Chemin de Bibémus</span></h1>
       <p id="notice" hidden$="[[ app.authenticated ]]">
-        Bienvenue, pour ouvrir le portail, <br>il faut que tu sois inscrit à un des services ci-dessous.
+        Bienvenue, pour ouvrir le portail, <br>il faut être inscrit à un des services ci-dessous.
       </p>
       <p id="notice" hidden$="[[ !app.authenticated ]]">
         Tu es déja connecté en temps que <span>[[ app.user.name ]]</span>. Tu peux cepependant lier un autre service de connexion à ton compte.
@@ -24,7 +24,7 @@
           data-provider$="[[ provider.id ]]"
           raised
           class$="[[ providerBtnClass(provider.id) ]]">
-          <iron-icon icon$="{{ providerIcon(provider.id) }}"></iron-icon>
+          <iron-icon icon="[[ providerIcon(provider.id) ]]"></iron-icon>
           <span>Se connecter avec <em>[[ providerName(provider.id) ]]</em></span>
         </paper-button>
       </template>
