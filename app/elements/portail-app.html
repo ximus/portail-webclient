@@ -8,6 +8,7 @@
 <link rel="import" href="../vendor/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../vendor/paper-spinner/paper-spinner.html">
 <link rel="import" href="../vendor/app-router/src/app-router.html">
+<link rel="import" href="portail-drawer.html">
 <link rel="import" href="portail-login.html">
 <link rel="import" href="portail-profile.html">
 <link rel="import" href="portail-gate.html">
@@ -30,18 +31,7 @@
       <paper-drawer-panel id="drawer" disableEdgeSwipe responsive-width="99999px">
 
         <!-- Nav Menu -->
-        <div drawer hidden$="[[ !authenticated ]]">
-          <div id="logged-in-user-badge">
-            <img src="[[ user.image_url ]]">
-            <span>[[ user.name ]]</span>
-          </div>
-          <paper-button on-click="profileClick">
-            Profile
-          </paper-button>
-          <paper-button on-click="logout">
-            Se déconnecter
-          </paper-button>
-        </div>
+        <portail-drawer drawer user="[[ user ]]" hidden$="[[ !authenticated ]]"></portail-drawer>
 
         <!-- App current view -->
         <div main>

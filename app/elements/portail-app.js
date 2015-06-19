@@ -61,10 +61,6 @@ Polymer({
     }
   },
 
-  // eventDelegates: {
-  //   'main': 'gotoGate'
-  // },
-
   startup: function() {
     var elapsed = Date.now() - this.readyTime;
     var t = this.minSplashTime - elapsed;
@@ -78,12 +74,13 @@ Polymer({
     log("startup complete")
   },
 
-  configChanged: function() {
-    this.iid = this.config.iid
-    this.user = this.config.userInfo
-    this._configReadyCallbacks.forEach(function(callback) {
-      callback()
-    })
+  configChanged: function(config) {
+    if (config) {
+      this.iid = this.config.iid
+      this.user = this.config.userInfo
+      let cb;
+      while (cb = this._configReadyCallbacks.pop()) cb()
+    }
   },
 
   _configReadyCallbacks: [],
@@ -93,7 +90,7 @@ Polymer({
       callback()
     }
     else {
-      // this is a performance killer in FF and SF
+      // this is a performance killer in polyfilled browsers
       // this.observeProperty('config', callback)
       this._configReadyCallbacks.push(callback)
     }
@@ -133,21 +130,5 @@ Polymer({
 
   gotoProfile: function() {
     this.router.go('/profile')
-  },
-
-  profileClick: function() {
-    var app = this
-    app.gotoProfile()
-    app.$.drawer.closeDrawer()
-  },
-
-  logout: function() {
-    var app = this
-    Auth.logout().then(function() {
-      app.$.drawer.closeDrawer()
-      app.gotoHome()
-    }).catch(function(e) {
-      log("error logging out", e)
-    })
   }
 });

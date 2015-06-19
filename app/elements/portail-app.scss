@@ -1,9 +1,5 @@
 @import "../styles/material";
 
-* {
-  box-sizing: border-box;
-}
-
 :host {
   position: relative;
   height: 100%;
@@ -23,22 +19,6 @@
   background-size: 512px;
 }
 
-#logged-in-user-badge {
-  height: 50px;
-  line-height: 50px;
-  img, span {
-    vertical-align: middle;
-  }
-  img {
-    margin-right: 0.6em;
-    height: 40px;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-  }
-  margin-bottom: 2em;
-}
-
 #hamburger {
   /deep/ iron-icon {
     width: 30px !important;
@@ -55,9 +35,4 @@ app-route > :last-child {
 
 [selected="main"] #hamburger {
   z-index: 1;
-}
-
-[drawer] {
-  background: white;
-  padding: 2em 3em;
 }

@@ -1,0 +1,28 @@
+:host {
+  background: white;
+  padding: 2em 3em;
+
+  @apply(--layout);
+  @apply(--layout-fit);
+  @apply(--layout-vertical);
+}
+
+#logged-in-user-badge {
+  height: 50px;
+  line-height: 50px;
+  img, span {
+    vertical-align: middle;
+  }
+  img {
+    margin-right: 0.6em;
+    height: 40px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  margin-bottom: 2em;
+}
+
+paper-button {
+  text-align: left;
+}

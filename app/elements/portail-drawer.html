@@ -1,0 +1,23 @@
+<dom-module id="portail-drawer">
+  <link rel="import" type="css" href="portail-drawer.css">
+
+  <template>
+    <div id="logged-in-user-badge">
+      <img src="[[ user.image_url ]]">
+      <span>[[ user.name ]]</span>
+    </div>
+    <paper-button on-click="gotoGate">
+      Portail
+    </paper-button>
+    <paper-button on-click="gotoProfile">
+      Profile
+    </paper-button>
+    <paper-button on-click="logout">
+      Se déconnecter
+    </paper-button>
+  </template>
+
+  <script>
+    require(['elements/portail-drawer'])
+  </script>
+</dom-module>
