@@ -3,6 +3,7 @@ var fs = require('fs')
 var gulp = require("gulp"),
     _ = require("lodash"),
     // Utils
+    gutil = require('gulp-util'),
     clean  = require('gulp-clean'),
     rename = require("gulp-rename"),
     filter = require("gulp-filter"),
@@ -47,19 +48,15 @@ var paths = {
 var watchOpts = { interval: 500 }
 var to5Opts = { modules: 'amd' }
 
-function htmlStream(src) {
-  return src
+gulp.task("html", ["styles"], function() {
+  return gulp.src(paths.html)
     // Currently polymer is really not helpful with shiming shadow dom in
     // index.html, gotta inline index.css
     .pipe(replace('<link rel="stylesheet" href="styles/index.css">', function(s) {
         var style = fs.readFileSync(paths.build+'/styles/index.css', 'utf8')
         return '<link rel="import" href="vendor/polymer/polymer.html">\n<style is="custom-style">\n' + style + '\n</style>\n'
     }))
-}
-
-gulp.task("html", ["styles"], function() {
-  return htmlStream(gulp.src(paths.html))
-    .on("error", notify.onError("[Scripts] <%= error.message%>"))
+    .on("error", gutil.log)
     .pipe(livereload())
     .pipe(gulp.dest(paths.build))
 })
@@ -68,9 +65,9 @@ gulp.task("html", ["styles"], function() {
 // to share the same js module space
 gulp.task("scripts", function() {
   var src = paths.scripts
-  return htmlStream(gulp.src(src))
+  return gulp.src(src)
     .pipe(to5(to5Opts))
-    .on("error", notify.onError("[Scripts] <%= error.message%>"))
+    .on("error", gutil.log)
     .pipe(livereload())
     .pipe(gulp.dest(paths.build))
 })
@@ -78,20 +75,15 @@ gulp.task("scripts", function() {
 gulp.task("styles", function() {
   var css = gulp.src(paths.css)
   var scss = sass( 'app', {
-      loadPath: paths.sass_load_paths,
-      // debugInfo: true,
-      // trace: true
-    })
-    .on('error', function (err) {
-      console.error('SASS Error', err.message);
-   })
+    loadPath: paths.sass_load_paths
+    // debugInfo: true,
+    // trace: true
+  })
 
   return merge(css, scss)
     .pipe(autoprefixer())
     .pipe(gulp.dest(paths.build))
-    .on("error", function (err) {
-      console.error('SASS Error', err);
-    })
+    .on("error", gutil.log)
     .pipe(livereload())
     .pipe(gulp.dest(paths.build))
 })
@@ -149,6 +141,4 @@ gulp.task("watch", function() {
   watch(paths.misc_copy, watchOpts,      ["copy"])
 })
 
-gulp.task("default", ["build", "watch"], function() {
-
-})
+gulp.task("default", ["build", "watch"], function() {})
