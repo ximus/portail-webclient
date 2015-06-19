@@ -22,7 +22,8 @@ Polymer({
     // behind the real gate state
     viewState: {
       type: String,
-      reflectToAttribute: true
+      reflectToAttribute: true,
+      value: null
     },
     buttonState: {
       type: String,
@@ -119,7 +120,10 @@ Polymer({
     var transform = 'translateX(' + x + 'px)'
 
     gate.style.webkitTransform = gate.style.transform = transform
-    this.onGateAnimationStart()
+    // animation triggers only when view state is defined,
+    // need to update viewState in the next frame only so that on app startup,
+    // the gate can position itself without animations.
+    this.async(this.onGateAnimationStart.bind(this), 1)
   },
 
   onGateAnimationStart: function() {

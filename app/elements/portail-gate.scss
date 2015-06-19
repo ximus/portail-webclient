@@ -106,17 +106,21 @@ path {
 }
 
 
-// -------------
-// Offline state
-// -------------
-$offline_color: #eee;
 $fade_timing: 400ms;
-path {
+
+#the-gate-part {
+  transition: fill $fade_timing ease-out;
+}
+
+:host([view-state]) #the-gate-part {
   transition: transform 10s linear, fill $fade_timing ease-out;
 }
+
 #gate-state {
   transition: color $fade_timing;
 }
+
+$offline_color: #eee;
 .offline {
   path {
     fill: $offline_color;
