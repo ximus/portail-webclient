@@ -19,20 +19,18 @@
 }
 
 #top {
-  text-align: center
+  text-align: center;
+  margin-bottom: 3em;
+  @include mobile-only {
+    margin-bottom: 2em;
+  }
 }
 
 #main, #top {
   max-width: 400px;
   min-height: min-content;
-  margin: 0 auto;
-}
-
-#notice {
-  margin-bottom: 3em;
-  @include mobile-only {
-    margin-bottom: 2em;
-  }
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /*      // .btn-adn           { @include btn-social(#d87a68); }
